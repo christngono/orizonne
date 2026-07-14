@@ -46,17 +46,21 @@
   margin-bottom: 18px;
 }
 
+/* Le bouclier est bleu : sur le marine du pied de page, une pastille blanche
+   lui redonne du contraste. */
 .footer__logo img {
-  width: 44px;
-  height: 44px;
-  border-radius: 10px;
-  object-fit: cover;
+  width: 56px;
+  height: 56px;
+  padding: 7px;
+  border-radius: 13px;
+  background: #fff;
+  object-fit: contain;
 }
 
 .footer__logo span {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: 1.3rem;
+  font-size: 1.42rem;
   letter-spacing: 0.06em;
   color: #fff;
 }

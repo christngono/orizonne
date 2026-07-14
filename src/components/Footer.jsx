@@ -3,7 +3,7 @@ import { ArrowUp, Mail, MapPin, Phone } from "lucide-react";
 import { Facebook, Linkedin, Youtube } from "./SocialIcons";
 import { useLang } from "../i18n/LanguageContext";
 import { COMPANY } from "../i18n/content";
-import logo from "../assets/logo.jpeg";
+import logo from "../assets/logo-mark.png";
 import "./Footer.css";
 
 export default function Footer() {

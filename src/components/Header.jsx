@@ -1,18 +1,39 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Mail, Menu, Phone, X, Globe } from "lucide-react";
 import { Facebook, Linkedin, Youtube } from "./SocialIcons";
 import { useLang } from "../i18n/LanguageContext";
 import { COMPANY } from "../i18n/content";
-import logo from "../assets/logo.jpeg";
+import logo from "../assets/logo-mark.png";
 import "./Header.css";
+
+/** Rayon nécessaire pour qu'un cercle centré en (x, y) couvre tout le viewport. */
+function radiusToCover(x, y) {
+  const w = window.innerWidth;
+  const h = window.innerHeight;
+  return Math.hypot(Math.max(x, w - x), Math.max(y, h - y));
+}
 
 export default function Header() {
   const { t, lang, toggle } = useLang();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  // Origine du cercle : le centre du bouton burger, mesuré au moment du clic.
+  const [origin, setOrigin] = useState({ x: 0, y: 0, r: 0 });
+  const burgerRef = useRef(null);
   const { pathname } = useLocation();
+
+  const toggleMenu = useCallback(() => {
+    const el = burgerRef.current;
+    if (el) {
+      const r = el.getBoundingClientRect();
+      const x = r.left + r.width / 2;
+      const y = r.top + r.height / 2;
+      setOrigin({ x, y, r: radiusToCover(x, y) });
+    }
+    setOpen((o) => !o);
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -75,7 +96,9 @@ export default function Header() {
         </div>
       </div>
 
-      <header className={`header${scrolled ? " header--scrolled" : ""}`}>
+      <header
+        className={`header${scrolled ? " header--scrolled" : ""}${open ? " header--menu-open" : ""}`}
+      >
         <div className="container header__inner">
           <Link to="/" className="brand" aria-label="ORIZONNE">
             <img src={logo} alt="" className="brand__logo" />
@@ -98,8 +121,9 @@ export default function Header() {
               {t.common.contactUs}
             </Link>
             <button
-              className="burger"
-              onClick={() => setOpen((o) => !o)}
+              ref={burgerRef}
+              className={`burger${open ? " burger--open" : ""}`}
+              onClick={toggleMenu}
               aria-label="Menu"
               aria-expanded={open}
             >
@@ -113,29 +137,54 @@ export default function Header() {
         {open && (
           <motion.div
             className="mobile-menu"
-            initial={{ opacity: 0, y: -12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.22 }}
+            /* Révélation circulaire : le menu jaillit du bouton burger et s'y
+               résorbe à la fermeture. */
+            initial={{ clipPath: `circle(0px at ${origin.x}px ${origin.y}px)` }}
+            animate={{ clipPath: `circle(${origin.r}px at ${origin.x}px ${origin.y}px)` }}
+            exit={{ clipPath: `circle(0px at ${origin.x}px ${origin.y}px)` }}
+            transition={{ duration: 0.62, ease: [0.86, 0, 0.07, 1] }}
           >
             <nav>
               {links.map((l, i) => (
                 <motion.div
                   key={l.to}
-                  initial={{ opacity: 0, x: -16 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.05 + i * 0.05 }}
+                  initial={{ opacity: 0, y: 24 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 12, transition: { duration: 0.14 } }}
+                  transition={{ delay: 0.22 + i * 0.06, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                 >
                   <NavLink to={l.to} end={l.to === "/"} className="mobile-menu__link">
+                    <span className="mobile-menu__index">0{i + 1}</span>
                     {l.label}
                   </NavLink>
                 </motion.div>
               ))}
             </nav>
-            <button className="lang-switch" onClick={toggle}>
-              <Globe size={16} />
-              {lang === "fr" ? "Switch to English" : "Passer en français"}
-            </button>
+
+            <motion.div
+              className="mobile-menu__foot"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, transition: { duration: 0.12 } }}
+              transition={{ delay: 0.22 + links.length * 0.06, duration: 0.4 }}
+            >
+              <button className="lang-switch" onClick={toggle}>
+                <Globe size={16} />
+                {lang === "fr" ? "Switch to English" : "Passer en français"}
+              </button>
+
+              <div className="mobile-menu__socials">
+                <a href={COMPANY.socials.facebook} target="_blank" rel="noreferrer" aria-label="Facebook">
+                  <Facebook size={17} />
+                </a>
+                <a href={COMPANY.socials.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn">
+                  <Linkedin size={17} />
+                </a>
+                <a href={COMPANY.socials.youtube} target="_blank" rel="noreferrer" aria-label="YouTube">
+                  <Youtube size={17} />
+                </a>
+              </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

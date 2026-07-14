@@ -75,7 +75,7 @@
 .header {
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 200; /* au-dessus du menu plein écran (150) */
   background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(14px);
   border-bottom: 1px solid transparent;
@@ -105,13 +105,16 @@
   flex-shrink: 0;
 }
 
+/* Emblème détouré (fond transparent) : il remplit tout son cadre. */
 .brand__logo {
-  width: 46px;
-  height: 46px;
-  object-fit: cover;
-  border-radius: 10px;
-  /* Le logo est fourni sur fond blanc : on le fusionne avec l'en-tête. */
-  mix-blend-mode: multiply;
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.brand:hover .brand__logo {
+  transform: scale(1.08) rotate(-3deg);
 }
 
 .brand__text {
@@ -119,7 +122,7 @@
   flex-direction: column;
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: 1.32rem;
+  font-size: 1.42rem;
   letter-spacing: 0.06em;
   color: var(--navy-900);
   line-height: 1.1;
@@ -220,45 +223,132 @@
   }
 }
 
-/* Menu mobile ------------------------------------------------------------ */
+/* Menu plein écran, révélé en cercle -------------------------------------- */
+
+/* Pendant l'ouverture, l'en-tête s'efface pour laisser passer le cercle ;
+   seuls le logo et le burger restent, en blanc, au-dessus de l'overlay. */
+.header--menu-open {
+  background: transparent;
+  backdrop-filter: none;
+  box-shadow: none;
+  border-bottom-color: transparent;
+}
+
+.header--menu-open .brand__text {
+  color: #fff;
+}
+
+.header--menu-open .brand__text small {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.header--menu-open .burger {
+  color: #fff;
+}
+
+/* Le bouclier est bleu foncé : sur le marine du menu, on le passe en blanc. */
+.header--menu-open .brand__logo {
+  filter: brightness(0) invert(1);
+}
+
+.header--menu-open .header__actions .btn {
+  display: none;
+}
+
 .mobile-menu {
   position: fixed;
-  top: calc(var(--header-h) + 40px);
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 99;
-  background: #fff;
-  padding: 24px;
+  inset: 0;
+  z-index: 150; /* sous l'en-tête (200) : le burger reste cliquable */
+  background: var(--grad-deep);
+  padding: calc(var(--header-h) + 48px) 28px 40px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  justify-content: space-between;
+  gap: 32px;
+  /* Le cercle est piloté par Framer Motion (clip-path). */
+  will-change: clip-path;
+}
+
+/* Halo cyan, rappel de l'iris du logo. */
+.mobile-menu::before {
+  content: "";
+  position: absolute;
+  right: -120px;
+  top: -120px;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(46, 155, 214, 0.3), transparent 65%);
+  pointer-events: none;
 }
 
 .mobile-menu nav {
   display: flex;
   flex-direction: column;
+  position: relative;
+  z-index: 1;
 }
 
 .mobile-menu__link {
-  display: block;
-  padding: 18px 4px;
-  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding: 17px 4px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 1.1rem;
-  color: var(--ink);
+  font-size: 1.5rem;
+  color: #fff;
+  transition: color 0.25s, padding-left 0.25s;
 }
 
+.mobile-menu__link:hover,
 .mobile-menu__link.active {
-  color: var(--blue-700);
+  color: var(--cyan-400);
+  padding-left: 12px;
+}
+
+.mobile-menu__index {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--cyan-400);
+  opacity: 0.7;
+}
+
+.mobile-menu__foot {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  position: relative;
+  z-index: 1;
 }
 
 .mobile-menu .lang-switch {
   align-self: flex-start;
-  border-color: var(--line);
-  color: var(--ink);
-  padding: 10px 18px;
+  border-color: rgba(255, 255, 255, 0.28);
+  color: #fff;
+  padding: 11px 20px;
   font-size: 0.9rem;
+}
+
+.mobile-menu__socials {
+  display: flex;
+  gap: 12px;
+}
+
+.mobile-menu__socials a {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.09);
+  color: #fff;
+  transition: background 0.25s, transform 0.25s;
+}
+
+.mobile-menu__socials a:hover {
+  background: var(--grad-brand);
+  transform: translateY(-3px);
 }
