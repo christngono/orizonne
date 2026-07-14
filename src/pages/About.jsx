@@ -8,9 +8,10 @@ import ngossi from "../assets/team/ngossi.jpeg";
 import simeu from "../assets/team/simeu.jpeg";
 import nchare from "../assets/team/nchare.jpeg";
 import locko from "../assets/team/locko.jpeg";
+import ngono from "../assets/team/ngono.jpg";
 import "./About.css";
 
-const PORTRAITS = { ngossi, simeu, nchare, locko };
+const PORTRAITS = { ngossi, simeu, nchare, locko, ngono };
 
 export default function About() {
   const { t } = useLang();
