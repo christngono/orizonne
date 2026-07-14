@@ -1,0 +1,197 @@
+.hero {
+  position: relative;
+  min-height: min(88vh, 780px);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: var(--navy-950);
+  color: rgba(255, 255, 255, 0.82);
+  padding: clamp(70px, 9vw, 110px) 0;
+}
+
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+}
+
+/* Voile : dégradé sombre à gauche pour garantir le contraste du texte. */
+.hero__veil {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(100deg, rgba(3, 21, 47, 0.96) 0%, rgba(4, 31, 71, 0.9) 42%, rgba(0, 73, 178, 0.55) 72%, rgba(46, 155, 214, 0.35) 100%);
+}
+
+/* Sur mobile le texte passe par-dessus toute l'image : le voile latéral ne
+   suffit plus, on assombrit verticalement pour garder le texte lisible. */
+@media (max-width: 780px) {
+  .hero__veil {
+    background: linear-gradient(
+      175deg,
+      rgba(3, 21, 47, 0.95) 0%,
+      rgba(4, 31, 71, 0.93) 55%,
+      rgba(0, 73, 178, 0.82) 100%
+    );
+  }
+}
+
+.hero__grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(79, 182, 232, 0.09) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(79, 182, 232, 0.09) 1px, transparent 1px);
+  background-size: 62px 62px;
+  mask-image: radial-gradient(circle at 20% 50%, #000, transparent 70%);
+}
+
+.hero__inner {
+  position: relative;
+  z-index: 2;
+}
+
+.hero__content {
+  max-width: 680px;
+}
+
+.hero__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  border-radius: var(--r-full);
+  background: rgba(79, 182, 232, 0.14);
+  border: 1px solid rgba(79, 182, 232, 0.36);
+  color: var(--cyan-300);
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 22px;
+}
+
+.hero__tag::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--cyan-400);
+  box-shadow: 0 0 0 0 rgba(79, 182, 232, 0.7);
+  animation: pulse 2.2s infinite;
+}
+
+@keyframes pulse {
+  70% {
+    box-shadow: 0 0 0 9px rgba(79, 182, 232, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(79, 182, 232, 0);
+  }
+}
+
+.hero h1 {
+  color: #fff;
+  font-size: clamp(2.2rem, 5.2vw, 4rem);
+  margin-bottom: 20px;
+}
+
+.hero__text {
+  font-size: 1.08rem;
+  line-height: 1.75;
+  max-width: 560px;
+  margin-bottom: 24px;
+}
+
+.hero__quote {
+  display: flex;
+  gap: 12px;
+  padding-left: 18px;
+  border-left: 3px solid var(--cyan-400);
+  font-style: italic;
+  font-size: 0.98rem;
+  color: rgba(255, 255, 255, 0.72);
+  max-width: 540px;
+  margin-bottom: 34px;
+}
+
+.hero__quote svg {
+  color: var(--cyan-400);
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+/* Flèches ---------------------------------------------------------------- */
+.hero__nav {
+  position: absolute;
+  right: 24px;
+  bottom: 0;
+  display: flex;
+  gap: 10px;
+}
+
+.hero__nav button {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  color: #fff;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  transition: background 0.25s, transform 0.25s, border-color 0.25s;
+}
+
+.hero__nav button:hover {
+  background: var(--blue-700);
+  border-color: var(--blue-700);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 780px) {
+  .hero__nav {
+    display: none;
+  }
+}
+
+/* Puces de progression --------------------------------------------------- */
+.hero__dots {
+  display: flex;
+  gap: 10px;
+  margin-top: 44px;
+}
+
+.hero__dot {
+  position: relative;
+  width: 52px;
+  height: 4px;
+  border: 0;
+  padding: 0;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.24);
+  cursor: pointer;
+  overflow: hidden;
+  transition: width 0.3s;
+}
+
+.hero__dot.is-active {
+  width: 82px;
+}
+
+.hero__dot-fill {
+  position: absolute;
+  inset: 0;
+  border-radius: 4px;
+  background: var(--grad-brand);
+  transform-origin: left;
+}

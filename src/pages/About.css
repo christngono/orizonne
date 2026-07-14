@@ -1,0 +1,314 @@
+/* Qui sommes-nous --------------------------------------------------------- */
+.who {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: clamp(40px, 5vw, 70px);
+  align-items: start;
+}
+
+.who__aside {
+  position: sticky;
+  top: calc(var(--header-h) + 30px);
+}
+
+.who__aside h2 {
+  margin-block: 6px 30px;
+}
+
+.who__body {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  text-align: justify;
+}
+
+.who__lead {
+  font-size: 1.06rem;
+  color: var(--ink);
+  font-weight: 500;
+}
+
+@media (max-width: 900px) {
+  .who {
+    grid-template-columns: 1fr;
+  }
+  .who__aside {
+    position: static;
+  }
+}
+
+/* Citation du CEO ---------------------------------------------------------- */
+.quote-card {
+  position: relative;
+  padding: 32px;
+  border-radius: var(--r-lg);
+  background: var(--grad-deep);
+  color: rgba(255, 255, 255, 0.82);
+  overflow: hidden;
+}
+
+.quote-card::before {
+  content: "";
+  position: absolute;
+  right: -60px;
+  bottom: -60px;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(46, 155, 214, 0.28), transparent 65%);
+}
+
+.quote-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.quote-card > svg {
+  color: var(--cyan-400);
+  margin-bottom: 14px;
+}
+
+.quote-card blockquote {
+  font-size: 1.02rem;
+  line-height: 1.75;
+  font-style: italic;
+  color: #fff;
+  margin-bottom: 26px;
+}
+
+.quote-card figcaption {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.quote-card figcaption img {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: top center;
+  border: 2px solid var(--cyan-400);
+}
+
+.quote-card figcaption strong {
+  display: block;
+  font-family: var(--font-display);
+  color: #fff;
+  font-size: 0.98rem;
+}
+
+.quote-card figcaption span {
+  font-size: 0.8rem;
+  line-height: 1.5;
+  display: block;
+}
+
+/* Directions ---------------------------------------------------------------- */
+.directions {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 1080px) {
+  .directions {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .directions {
+    grid-template-columns: 1fr;
+  }
+}
+
+.direction {
+  position: relative;
+  height: 100%;
+  padding: 30px 24px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+}
+
+.direction:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(0, 73, 178, 0.24);
+}
+
+.direction__num {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: var(--bg-tint);
+  line-height: 1;
+  transition: color 0.3s;
+}
+
+.direction:hover .direction__num {
+  color: rgba(46, 155, 214, 0.22);
+}
+
+.direction__icon {
+  width: 50px;
+  height: 50px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--r-md);
+  background: var(--bg-tint);
+  color: var(--blue-700);
+  margin-bottom: 18px;
+  transition: background 0.3s, color 0.3s;
+}
+
+.direction:hover .direction__icon {
+  background: var(--grad-brand);
+  color: #fff;
+}
+
+.direction h3 {
+  font-size: 1rem;
+  line-height: 1.45;
+  position: relative;
+  z-index: 1;
+}
+
+/* Équipe --------------------------------------------------------------------- */
+.team {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 26px;
+}
+
+@media (max-width: 1000px) {
+  .team {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .team {
+    grid-template-columns: 1fr;
+  }
+}
+
+.member {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+}
+
+.member:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(0, 73, 178, 0.22);
+}
+
+.member__photo {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--grad-deep);
+  display: grid;
+  place-items: center;
+}
+
+.member__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  transition: transform 0.6s;
+}
+
+.member:hover .member__photo img {
+  transform: scale(1.06);
+}
+
+/* Dégradé bas pour lier la photo à la carte. */
+.member__photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(4, 31, 71, 0.42), transparent 45%);
+}
+
+.member__initials {
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.9);
+  letter-spacing: 0.05em;
+}
+
+.member__body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.member__body h3 {
+  font-size: 1.08rem;
+  margin-bottom: 5px;
+}
+
+.member__role {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--blue-700);
+  margin-bottom: 16px;
+}
+
+.member__toggle {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-tint);
+  border: 0;
+  border-radius: var(--r-full);
+  padding: 9px 16px;
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--blue-700);
+  cursor: pointer;
+  transition: background 0.25s, color 0.25s;
+}
+
+.member__toggle:hover {
+  background: var(--grad-brand);
+  color: #fff;
+}
+
+.member__bio {
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  font-size: 0.9rem;
+  line-height: 1.75;
+  text-align: justify;
+  animation: bio-in 0.4s ease;
+}
+
+@keyframes bio-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}

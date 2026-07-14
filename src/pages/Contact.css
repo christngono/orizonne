@@ -1,0 +1,243 @@
+.contact {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: clamp(36px, 5vw, 66px);
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .contact {
+    grid-template-columns: 1fr;
+  }
+}
+
+.contact__aside h2,
+.contact__form-wrap h2 {
+  margin-bottom: 26px;
+}
+
+/* Coordonnées ------------------------------------------------------------- */
+.info-list {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  margin-bottom: 34px;
+}
+
+.info-list li {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.info-list__icon {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: var(--r-md);
+  background: var(--bg-tint);
+  color: var(--blue-700);
+  transition: background 0.3s, color 0.3s;
+}
+
+.info-list li:hover .info-list__icon {
+  background: var(--grad-brand);
+  color: #fff;
+}
+
+.info-list strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.info-list a,
+.info-list div > span {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ink);
+  transition: color 0.2s;
+}
+
+.info-list a:hover {
+  color: var(--blue-700);
+}
+
+/* Réseaux sociaux ---------------------------------------------------------- */
+.contact__socials {
+  padding-block: 24px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 30px;
+}
+
+.contact__socials strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+.contact__socials div {
+  display: flex;
+  gap: 10px;
+}
+
+.contact__socials a {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  color: var(--navy-800);
+  transition: background 0.25s, color 0.25s, transform 0.25s, border-color 0.25s;
+}
+
+.contact__socials a:hover {
+  background: var(--grad-brand);
+  border-color: transparent;
+  color: #fff;
+  transform: translateY(-3px);
+}
+
+/* Carte CV ------------------------------------------------------------------ */
+.cv-card {
+  padding: 28px;
+  border-radius: var(--r-lg);
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+}
+
+.cv-card > svg {
+  color: var(--blue-700);
+  margin-bottom: 14px;
+}
+
+.cv-card h3 {
+  font-size: 1.08rem;
+  margin-bottom: 8px;
+}
+
+.cv-card p {
+  font-size: 0.92rem;
+  margin-bottom: 20px;
+}
+
+.cv-card .btn {
+  background: #fff;
+}
+
+/* Formulaire ---------------------------------------------------------------- */
+.contact__form-text {
+  margin-top: -18px;
+  margin-bottom: 26px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: clamp(26px, 3.5vw, 38px);
+  border-radius: var(--r-lg);
+  background: #fff;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-sm);
+}
+
+.form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 560px) {
+  .form__row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field label {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  padding: 13px 16px;
+  border: 1.5px solid var(--line);
+  border-radius: var(--r-sm);
+  background: var(--bg-soft);
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.22s, background 0.22s, box-shadow 0.22s;
+}
+
+.field textarea {
+  resize: vertical;
+  min-height: 130px;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: var(--blue-700);
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(0, 73, 178, 0.1);
+}
+
+.field input[aria-invalid="true"],
+.field textarea[aria-invalid="true"] {
+  border-color: #d94a4a;
+  background: #fdf3f3;
+}
+
+.field small {
+  color: #d94a4a;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.form .btn {
+  align-self: flex-start;
+}
+
+.form-success {
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  border-radius: var(--r-sm);
+  background: rgba(46, 155, 214, 0.1);
+  border: 1px solid rgba(46, 155, 214, 0.4);
+  color: var(--navy-800);
+  font-weight: 600;
+  font-size: 0.94rem;
+}
+
+/* Carte Google ---------------------------------------------------------------- */
+.map-sec {
+  line-height: 0;
+}
+
+.map-sec iframe {
+  width: 100%;
+  height: 440px;
+  border: 0;
+  /* Harmonise la carte avec la charte bleue du site. */
+  filter: grayscale(0.4) contrast(1.05);
+}

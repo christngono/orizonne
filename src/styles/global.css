@@ -1,0 +1,376 @@
+/* ==========================================================================
+   ORIZONNE — Design system
+   Charte issue du logo : bouclier bleu roi (#0049B2) + iris cyan (#2E9BD6)
+   ========================================================================== */
+
+:root {
+  /* Brand */
+  --navy-950: #03152F;
+  --navy-900: #041F47;
+  --navy-800: #07306B;
+  --blue-700: #0049b2; /* bleu du bouclier */
+  --blue-600: #1160d4;
+  --blue-500: #2b7ceb;
+  --cyan-500: #2e9bd6; /* iris du logo */
+  --cyan-400: #4fb6e8;
+  --cyan-300: #8fd6f5;
+
+  /* Neutres */
+  --ink: #0f1b2d;
+  --body: #46566e;
+  --muted: #7086a3;
+  --line: #e3eaf3;
+  --bg: #ffffff;
+  --bg-soft: #f4f8fd;
+  --bg-tint: #eaf2fb;
+
+  /* Effets */
+  --grad-brand: linear-gradient(120deg, var(--blue-700), var(--cyan-500));
+  --grad-deep: linear-gradient(140deg, var(--navy-950) 0%, var(--navy-800) 55%, var(--blue-700) 100%);
+  --shadow-sm: 0 2px 8px rgba(4, 31, 71, 0.06);
+  --shadow-md: 0 12px 30px rgba(4, 31, 71, 0.1);
+  --shadow-lg: 0 24px 60px rgba(4, 31, 71, 0.16);
+  --shadow-brand: 0 14px 34px rgba(0, 73, 178, 0.28);
+
+  --r-sm: 8px;
+  --r-md: 14px;
+  --r-lg: 22px;
+  --r-full: 999px;
+
+  --header-h: 78px;
+  --maxw: 1200px;
+
+  --font-display: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+}
+
+/* Reset ------------------------------------------------------------------ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--body);
+  background: var(--bg);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: var(--font-display);
+  color: var(--ink);
+  line-height: 1.18;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  font-size: clamp(2.1rem, 5vw, 3.6rem);
+}
+h2 {
+  font-size: clamp(1.7rem, 3.4vw, 2.6rem);
+}
+h3 {
+  font-size: clamp(1.15rem, 2vw, 1.4rem);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+ul {
+  list-style: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+/* Layout ----------------------------------------------------------------- */
+.container {
+  width: 100%;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: 24px;
+}
+
+.section {
+  padding: clamp(64px, 8vw, 110px) 0;
+}
+
+.section--soft {
+  background: var(--bg-soft);
+}
+
+.section--deep {
+  background: var(--grad-deep);
+  color: rgba(255, 255, 255, 0.78);
+  position: relative;
+  overflow: hidden;
+}
+
+.section--deep h2,
+.section--deep h3 {
+  color: #fff;
+}
+
+/* Grille technique décorative sur fonds sombres */
+.section--deep::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(79, 182, 232, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(79, 182, 232, 0.07) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(circle at 50% 40%, #000, transparent 78%);
+  pointer-events: none;
+}
+
+.section--deep > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Titres de section ------------------------------------------------------ */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--blue-700);
+  margin-bottom: 14px;
+}
+
+.eyebrow::before {
+  content: "";
+  width: 22px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--grad-brand);
+}
+
+.section--deep .eyebrow {
+  color: var(--cyan-400);
+}
+
+.section-head {
+  max-width: 720px;
+  margin-bottom: clamp(38px, 5vw, 58px);
+}
+
+.section-head--center {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.section-head p {
+  margin-top: 16px;
+  font-size: 1.03rem;
+}
+
+/* Boutons ---------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 26px;
+  border: 0;
+  border-radius: var(--r-full);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.94rem;
+  cursor: pointer;
+  transition: transform 0.25s, box-shadow 0.25s, background 0.25s, color 0.25s;
+  white-space: nowrap;
+}
+
+.btn svg {
+  transition: transform 0.25s;
+}
+
+.btn:hover svg {
+  transform: translateX(3px);
+}
+
+.btn--primary {
+  background: var(--grad-brand);
+  color: #fff;
+  box-shadow: var(--shadow-brand);
+}
+
+.btn--primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 42px rgba(0, 73, 178, 0.38);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: #fff;
+  border: 1.5px solid rgba(255, 255, 255, 0.42);
+}
+
+.btn--ghost:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: #fff;
+  transform: translateY(-2px);
+}
+
+.btn--outline {
+  background: transparent;
+  color: var(--blue-700);
+  border: 1.5px solid var(--line);
+}
+
+.btn--outline:hover {
+  border-color: var(--blue-700);
+  background: var(--bg-tint);
+}
+
+/* Cartes ----------------------------------------------------------------- */
+.card {
+  height: 100%;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: 32px;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(0, 73, 178, 0.25);
+}
+
+.card__icon {
+  width: 54px;
+  height: 54px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--r-md);
+  background: var(--bg-tint);
+  color: var(--blue-700);
+  margin-bottom: 20px;
+  transition: background 0.3s, color 0.3s;
+}
+
+.card:hover .card__icon {
+  background: var(--grad-brand);
+  color: #fff;
+}
+
+.card h3 {
+  margin-bottom: 10px;
+}
+
+.card p {
+  font-size: 0.95rem;
+}
+
+/* Grilles utilitaires ---------------------------------------------------- */
+.grid {
+  display: grid;
+  gap: 26px;
+}
+
+/* Les enfants directs sont les wrappers <Reveal> : ils doivent occuper
+   toute la hauteur de la cellule pour que les cartes s'alignent. */
+.grid > * {
+  height: 100%;
+}
+
+.grid--2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+.grid--3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+.grid--4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+@media (max-width: 980px) {
+  .grid--3,
+  .grid--4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .grid--2,
+  .grid--3,
+  .grid--4 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Utilitaires ------------------------------------------------------------ */
+.text-grad {
+  background: linear-gradient(100deg, var(--cyan-400), var(--cyan-300));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.lead {
+  font-size: 1.08rem;
+}
+
+/* Tronque proprement à la fin d'une ligne, sans couper un mot. */
+.clamp-4 {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,86 @@
+.page-hero {
+  position: relative;
+  overflow: hidden;
+  background: var(--grad-deep);
+  color: rgba(255, 255, 255, 0.76);
+  padding: clamp(64px, 8vw, 108px) 0 clamp(56px, 7vw, 92px);
+  text-align: center;
+}
+
+/* Grille technique + halo cyan, rappel de l'iris du logo. */
+.page-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(79, 182, 232, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(79, 182, 232, 0.08) 1px, transparent 1px);
+  background-size: 54px 54px;
+  mask-image: radial-gradient(circle at 50% 30%, #000, transparent 75%);
+}
+
+.page-hero::after {
+  content: "";
+  position: absolute;
+  top: -160px;
+  left: 50%;
+  translate: -50% 0;
+  width: 620px;
+  height: 620px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(46, 155, 214, 0.28), transparent 62%);
+  pointer-events: none;
+}
+
+.page-hero > .container {
+  position: relative;
+  z-index: 1;
+}
+
+.page-hero .eyebrow {
+  color: var(--cyan-400);
+  justify-content: center;
+}
+
+.page-hero h1 {
+  color: #fff;
+  max-width: 900px;
+  margin-inline: auto;
+}
+
+.page-hero__text {
+  max-width: 720px;
+  margin: 20px auto 0;
+  font-size: 1.05rem;
+  line-height: 1.75;
+}
+
+.crumbs {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 30px;
+  padding: 8px 18px;
+  border-radius: var(--r-full);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.crumbs a {
+  color: rgba(255, 255, 255, 0.7);
+  transition: color 0.2s;
+}
+
+.crumbs a:hover {
+  color: var(--cyan-400);
+}
+
+.crumbs span {
+  color: #fff;
+}
+
+.crumbs svg {
+  color: rgba(255, 255, 255, 0.4);
+}
